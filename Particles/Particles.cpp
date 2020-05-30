@@ -13,5 +13,6 @@ int main(int argc, char* argv[])
 
 	cout << "SDL Init succeeded." << endl;
 	SDL_Quit();
+
 	return 0;
 }
