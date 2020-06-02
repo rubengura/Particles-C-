@@ -58,7 +58,7 @@ bool Screen::init()
 	memset(m_buffer, 0xFF, SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(Uint32));
 
 	// Every pair of FF is a byte we are setting
-	for (int i = 0; i < SCREEN_WIDTH * SCREEN_HEIGHT; i++)
+	/*for (int i = 0; i < SCREEN_WIDTH * SCREEN_HEIGHT; i++)
 	{
 		m_buffer[i] = 0xFFFFFFFF;
 	}
@@ -66,7 +66,7 @@ bool Screen::init()
 	SDL_UpdateTexture(m_texture, NULL, m_buffer, SCREEN_HEIGHT * sizeof(Uint32));
 	SDL_RenderClear(m_renderer);
 	SDL_RenderCopy(m_renderer, m_texture, NULL, NULL);
-	SDL_RenderPresent(m_renderer);
+	SDL_RenderPresent(m_renderer);*/
 
 	return true;
 }
@@ -81,7 +81,31 @@ bool Screen::processEvents()
 			return false;
 		}
 	}
-	return false;
+	return true;
+}
+
+void Screen::setPixel(int x, int y, Uint8 red, Uint8 green, Uint8 blue)
+{
+	Uint32 color = 0;
+
+	color += red;
+	color <<= 8; // Bit shifting
+	color += green;
+	color <<= 8; // Bit shifting
+	color += blue;
+	color <<= 8; // Bit shifting
+	color += 0xFF; // Alpha
+
+	m_buffer[(y * SCREEN_WIDTH) + x] = color;
+
+}
+
+void Screen::update()
+{
+	SDL_UpdateTexture(m_texture, NULL, m_buffer, SCREEN_HEIGHT * sizeof(Uint32));
+	SDL_RenderClear(m_renderer);
+	SDL_RenderCopy(m_renderer, m_texture, NULL, NULL);
+	SDL_RenderPresent(m_renderer);
 }
 
 void Screen::close()
