@@ -55,7 +55,7 @@ bool Screen::init()
 	m_buffer = new Uint32[SCREEN_WIDTH * SCREEN_HEIGHT];
 
 	// 0xFF = 255 in hexadecimal
-	memset(m_buffer, 0xFF, SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(Uint32));
+	memset(m_buffer, 0, SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(Uint32));
 
 	update();
 
@@ -77,6 +77,12 @@ bool Screen::processEvents()
 
 void Screen::setPixel(int x, int y, Uint8 red, Uint8 green, Uint8 blue)
 {
+	// This is inefficient though
+	if (x < 0 || x >= SCREEN_WIDTH || y < 0 || y >= SCREEN_HEIGHT)
+	{
+		return;
+	};
+
 	Uint32 color = 0;
 
 	color += red;
