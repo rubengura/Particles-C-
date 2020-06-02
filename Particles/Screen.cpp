@@ -57,16 +57,7 @@ bool Screen::init()
 	// 0xFF = 255 in hexadecimal
 	memset(m_buffer, 0xFF, SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(Uint32));
 
-	// Every pair of FF is a byte we are setting
-	/*for (int i = 0; i < SCREEN_WIDTH * SCREEN_HEIGHT; i++)
-	{
-		m_buffer[i] = 0xFFFFFFFF;
-	}
-
-	SDL_UpdateTexture(m_texture, NULL, m_buffer, SCREEN_HEIGHT * sizeof(Uint32));
-	SDL_RenderClear(m_renderer);
-	SDL_RenderCopy(m_renderer, m_texture, NULL, NULL);
-	SDL_RenderPresent(m_renderer);*/
+	update();
 
 	return true;
 }
