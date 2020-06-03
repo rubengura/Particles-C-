@@ -1,10 +1,10 @@
 #include <iostream>
 #include "SDL.h"
-#include <math.h>
+#include <cmath>
 #include "Screen.h"
 #include "Swarm.h"
-#include <stdlib.h>
-#include <time.h>
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 using namespace particle;
@@ -25,13 +25,14 @@ int main(int argc, char* argv[])
 		int elapsed = SDL_GetTicks();
 
 		screen.clear();
-		swarm.update();
+		swarm.update(elapsed);
 
-		unsigned char green = (unsigned char)((1 + sin(elapsed * 0.0001) * 128));
+		unsigned char green = (unsigned char)((1 + cos(elapsed * 0.0001) * 128));
 		unsigned char red = (unsigned char)((1 + cos(elapsed * 0.0001) * 128));
-		unsigned char blue = (unsigned char)((1 + sin(elapsed * 0.0002) * 128));
+		unsigned char blue = (unsigned char)((1 + cos(elapsed * 0.0001) * 128));
 
 		const Particle* const pParticles = swarm.getParticles();
+
 		for (int i = 0; i < Swarm::NPARTICLES; i++)
 		{
 			Particle particle = pParticles[i];
